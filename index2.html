@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Valentine's Day 💖</title>
+    <style>
+      /* General Styling */
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: #ffcccb;
+        overflow: hidden;
+        text-align: center;
+        color: #ff3366;
+      }
+
+      /* Floating Hearts */
+      .heart-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .heart {
+        position: absolute;
+        color: #ff3366;
+        font-size: 20px;
+        opacity: 0.8;
+        animation: float 5s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-10vh);
+          opacity: 0;
+        }
+      }
+
+      /* Valentine's Card */
+      .container {
+        margin-top: 10%;
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        text-shadow: 2px 2px 10px rgba(255, 0, 102, 0.5);
+      }
+
+      p {
+        font-size: 1.5rem;
+      }
+
+      /* Heartbeat Animation */
+      .heart-emoji {
+        font-size: 5rem;
+        animation: heartbeat 1.5s infinite alternate;
+      }
+
+      @keyframes heartbeat {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.2);
+        }
+      }
+
+      /* Glowing Button */
+      .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 15px 30px;
+        font-size: 1.3rem;
+        color: white;
+        background: linear-gradient(45deg, #ff4d4d, #ff66b2);
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
+      }
+
+      .btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(255, 0, 102, 0.7);
+      }
+
+      /* Hidden Elements */
+      .hidden {
+        display: none;
+        font-size: 1.5rem;
+        color: #ff0033;
+        margin-top: 15px;
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      /* Music Button */
+      .music-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #ff4d4d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1rem;
+        box-shadow: 0 0 15px rgba(255, 0, 102, 0.5);
+        transition: all 0.3s ease;
+      }
+
+      .music-btn:hover {
+        background-color: #e63939;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating Hearts -->
+    <div class="heart-container"></div>
+
+    <!-- Valentine's Card -->
+    <div class="container">
+      <div class="heart-emoji">💖</div>
+      <h1>Happy Valentine's Day, My Love! 💕</h1>
+      <p id="message">
+        You're the reason my heart beats faster! <br />
+        Thank you for being my everything. 😘
+      </p>
+      <button class="btn" onclick="showSurprise()">Be My Valentine 💝</button>
+      <p id="surprise-message" class="hidden">Yay! You said yes! 😍💖</p>
+
+      <!-- New Button (Initially Hidden) -->
+      <button id="more-btn" class="btn hidden" onclick="showMore()">
+        What I Want to Tell You 💌
+      </button>
+
+      <!-- New Message (Initially Hidden) -->
+      <p id="more-message" class="hidden">
+        สวัสดีจ้า ยังแอบชอบอยู่เสมอนะ แม้เวลาจะผ่านไปนานแค่ไหน แฮปปี้วาเลนไทน์นะ
+        ❤️ อยากคุยด้วยกันเยอะๆ อยากโทรคุยก็ไม่กล้า😭
+        หลายทีแล้วที่ไม่กล้าส่งอะไรไปเพราะกลัวรำคาญ
+      </p>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgm" loop autoplay>
+      <source src="your-love-song.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Toggle Button -->
+    <button class="music-btn" onclick="toggleMusic()">🔊 Stop Music</button>
+
+    <!-- JavaScript for Interactions -->
+    <script>
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        document.querySelector(".heart-container").appendChild(heart);
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+
+      setInterval(createHeart, 300);
+
+      function showSurprise() {
+        document.getElementById("message").innerHTML =
+          "You're mine forever! 💞";
+        document.getElementById("surprise-message").classList.remove("hidden");
+        document.getElementById("more-btn").classList.remove("hidden");
+
+        // Spawn more hearts
+        for (let i = 0; i < 10; i++) {
+          createHeart();
+        }
+      }
+
+      function showMore() {
+        document.getElementById("more-message").classList.remove("hidden");
+        document.getElementById("more-btn").style.display = "none"; // Hide button after click
+      }
+
+      function toggleMusic() {
+        let music = document.getElementById("bgm");
+        let button = document.querySelector(".music-btn");
+
+        if (music.paused) {
+          music.play();
+          button.innerHTML = "🔊 Stop Music";
+        } else {
+          music.pause();
+          button.innerHTML = "🎵 Play Music";
+        }
+      }
+
+      // Ensure autoplay works (browsers may block autoplay without user interaction)
+      window.addEventListener("load", () => {
+        let music = document.getElementById("bgm");
+        let playPromise = music.play();
+
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log("Music auto-playing 🎶");
+            })
+            .catch(() => {
+              console.log("Autoplay blocked 😢, requiring user interaction.");
+            });
+        }
+      });
+    </script>
+  </body>
+</html>
